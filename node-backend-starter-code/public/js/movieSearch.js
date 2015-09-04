@@ -22,3 +22,8 @@ searchForm.on('submit', function(event){
         }
     });
 });
+
+//$('#dynamictable').append('<table></table>');
+//var table = $('#dynamictable').children();
+//table.append("<tr><td>a</td><td>b</td></tr>");
+//table.append("<tr><td>c</td><td>d</td></tr>");
