@@ -27,3 +27,48 @@ searchForm.on('submit', function(event){
 //var table = $('#dynamictable').children();
 //table.append("<tr><td>a</td><td>b</td></tr>");
 //table.append("<tr><td>c</td><td>d</td></tr>");
+
+//function MakeTablejQuery(rows, cols) {
+//    var table = $("<table/>").attr("border", 1);
+//    for (r = 0; r < rows; r++) {
+//        var row = $("<tr/>");
+//        for (var c = 0; c < cols; c++) {
+//            if (r == 0) {
+//                row.append($("<th/>").text("Column " + c))
+//            } else {
+//                row.append($("<td/>").text(c.toString() + r.toString()))
+//            }
+//        }
+//        table.append(row);
+//    }
+//    $("#placeholder").append(table);
+//}
+//
+//MakeTablejQuery(5, 3);
+
+//functional style
+//Number.prototype.times = function(fn) {
+//    for(var r = [], i = 0; i < this; i++)
+//        r.push(fn(i));
+//    return r;
+//};
+//
+//function MakeTablejQuery(numRows, numCols) {
+//
+//    var header = numCols.times(function(c) {
+//        return $("<th/>").text("Column " + c);
+//    });
+//
+//    var row = function(r) {
+//        return $("<tr/>").append(numCols.times(function(c) {
+//            return $("<td/>").text([c, r].join(""));
+//        }));
+//    };
+//
+//    return $("<table/>")
+//        .append(header)
+//        .append(numRows.times(row))
+//        .attr("border", 1);
+//}
+//
+//$("#placeholder").append(MakeTablejQuery(5, 3));
