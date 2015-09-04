@@ -3,16 +3,7 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <title>G.A Instructor Code Challenge</title>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 5px;
-            text-align: left;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <form>
@@ -29,45 +20,8 @@
             <th>Year</th>
             <th>Favorite</th>
         </tr>
-        <tr>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-        </tr>
-        <tr>
-            <td>Eve</td>
-            <td>Jackson</td>
-            <td>94</td>
-        </tr>
     </table>
 </div>
-<script>
-    var $Form = $('form');
-    var $Container = $('#container');
-    $Container.hide();
-    $Form.on('submit', function(p_oEvent){
-        var sUrl, sMovie, oData;
-        p_oEvent.preventDefault();
-        sMovie = $Form.find('input').val();
-        console.log(sMovie);
-        sUrl = 'http://www.omdbapi.com/?s=' + sMovie;
-        $.ajax(sUrl, {
-            complete: function(p_oXHR, p_sStatus){
-                oData = $.parseJSON(p_oXHR.responseText);
-                console.log(oData['Search']);
-                oData['Search'].forEach(function(movie){
-                    $Container.find('table tbody').append("<tr><td>{{movie.title}}</td><td>{{movie.year}}</td></tr>");
-                    console.log(movie.director);
-//                    $Container.find('.title').text(movie.Title);
-//                    $Container.find('.plot').text(movie.Plot);
-//                    $Container.find('.poster').html('<img src="' + movie.Poster + '"/>');
-//                    $Container.find('.year').text(movie.Year);
-                });
-                $Container.show();
-            }
-        });
-    });
-
-</script>
+<script src="js/movieSearch.js"></script>
 </body>
 </html>
