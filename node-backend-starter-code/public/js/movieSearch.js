@@ -1,9 +1,12 @@
+MOVIES = [{title: 'Batman'}];
+
+
 var searchForm = $('form');
 var container = $('#container');
 container.hide();
 searchForm.on('submit', function(event){
     event.preventDefault();
-    var movieTitle = searchForm.find('input').val();
+    var movieTitle = searchForm.find('input').val(); //query parameter
     var url = 'http://www.omdbapi.com/?s=' + movieTitle;
     $.ajax(url, {
         complete: function(data, status){
@@ -11,8 +14,8 @@ searchForm.on('submit', function(event){
             var results = $.parseJSON(data.responseText);
             console.log(results['Search']);
             results['Search'].forEach(function(movie){
-                container.find('table tbody').append("<tr><td>{{movie.title}}</td><td>{{movie.year}}</td></tr>");
-                console.log(movie.director);
+                getMovieDetails(movie.Title);
+                container.find('table tbody').append("<tr><td>movie.Title</td><td>{{movie.year}}</td></tr>");
 //                    $Container.find('.title').text(movie.Title);
 //                    $Container.find('.plot').text(movie.Plot);
 //                    $Container.find('.poster').html('<img src="' + movie.Poster + '"/>');
@@ -22,6 +25,20 @@ searchForm.on('submit', function(event){
         }
     });
 });
+
+function reqListener () {
+    console.log(this.responseText);
+    $("#results").append(this.responseText);
+}
+
+function getMovieDetails(movietitle) {
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", reqListener);
+    console.log(movietitle);
+    oReq.open("GET", "http://www.omdbapi.com/?t=" + movietitle + "&r=json", true);
+    oReq.send();
+}
+
 
 //$('#dynamictable').append('<table></table>');
 //var table = $('#dynamictable').children();
@@ -41,7 +58,9 @@ searchForm.on('submit', function(event){
 //        }
 //        table.append(row);
 //    }
-//    $("#placeholder").append(table);
+//    var container = $("#container")
+//    container.html('');
+//    container.append(table);
 //}
 //
 //MakeTablejQuery(5, 3);
