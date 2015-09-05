@@ -3,7 +3,7 @@ searchForm.addEventListener("submit",function(e){
     e.preventDefault();
     document.getElementById("results").innerHTML = "";
     var movieTitle = document.getElementById("query-string").value;
-    var url = 'http://www.omdbapi.com/?s=' + movieTitle;
+    var url = 'https://www.omdbapi.com/?s=' + movieTitle;
     $.ajax(url, {
         complete: function(data, status){
             console.log(status);
@@ -42,6 +42,6 @@ function reqListener () {
 function getMovieDetails(movietitle) {
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", reqListener);
-    oReq.open("GET", "http://www.omdbapi.com/?t=" + movietitle + "&r=json", true);
+    oReq.open("GET", "https://www.omdbapi.com/?t=" + movietitle + "&r=json", true);
     oReq.send();
 }
