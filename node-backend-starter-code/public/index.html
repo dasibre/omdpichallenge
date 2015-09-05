@@ -6,24 +6,16 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<form>
+<form id="search">
     <label>
-        <input type="text" name="movie" placeholder="movie title" />
+        <input type="text" id="query-string" placeholder="movie title" />
     </label>
     <button>Go!</button>
 </form>
 
 <div id="results">
 </div>
-
-<div id="container">
-    <table style="width:100%">
-        <tr>
-            <th>Title</th>
-            <th>Year</th>
-            <th>Favorite</th>
-        </tr>
-    </table>
+<div id="movie-details">
 </div>
 <script src="js/movieSearch.js"></script>
 </body>
