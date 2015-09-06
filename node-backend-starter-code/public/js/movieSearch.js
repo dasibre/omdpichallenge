@@ -1,15 +1,17 @@
 (function(){
 
-    var url = "https://www.omdbapi.com/";
+    var url = "https://www.omdbapi.com/"; //using https to make heroku happy
     var movieSelectors = {
       overview: document.getElementById("movie-overview-info"),
       infoBar: document.getElementsByClassName("movie-info-bar"),
       searchForm: document.getElementById("search-form"),
       title: document.getElementById("query-string"),
       results: document.getElementById("results"),
-      loader: document.getElementById("loading")
+      loader: document.getElementById("loading"),
+      favorite: document.getElementById("favorite")
     };
 
+    //Add submit event listener, to get movies on submission
     movieSelectors.searchForm.addEventListener("submit",function(e){
         e.preventDefault();
         movieSelectors.results.innerHTML = "";
@@ -27,10 +29,21 @@
         });
     });
 
+
+
     //TODO Add function
     //function searchByTitle(title) {
     //    var searchParam = '?s=' + movieTitle;
     //}
+
+    function favoriteAmovie(movie) {
+        var client = new XMLHttpRequest();
+        client.open("POST", "/favorites", true);
+        client.setRequestHeader("Content-Type", "application/json");
+        client.send(JSON.stringify(movie));
+        console.log(movie);
+    }
+
 
     function createList(movie){
         var fields = [movie.Title, movie.Year];
@@ -51,7 +64,7 @@
             list.appendChild(item);
         });
         result.appendChild(list);
-        return document.getElementById("results").appendChild(result);
+        return movieSelectors.results.appendChild(result);
     }
 
     function toggleMovieInfoDisplay(cb) {
@@ -80,10 +93,15 @@
         year.innerText = movieObj.Year;
         movieInfoBar.innerHTML = movieinfoHtml;
         movieDescription.innerText = movieObj.Plot;
+        movieSelectors.favorite.addEventListener("click", function(e) {
+            favoriteAmovie(movieObj);
+            this.removeEventListener('click', arguments.callee, false);
+        },false);
     }
 
     function reqListener () {
-        setMovieFields(JSON.parse(this.responseText));
+        movie = JSON.parse(this.responseText);
+        setMovieFields(movie);
         loader.hide();
         toggleMovieInfoDisplay(function(element){
             el = document.getElementById("close-modal");
