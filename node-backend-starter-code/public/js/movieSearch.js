@@ -22,7 +22,7 @@
     movieSelectors.searchForm.addEventListener("submit",function(e){
         e.preventDefault();
         loader.show();
-        movieSelectors.results.innerHTML = "";
+        resetResultsHtml();
         var movieTitle = movieSelectors.title.value;
         var searchParam = '?s=' + movieTitle;
         ajaxClient.get(omdbapiUrl + searchParam,function(){
@@ -32,6 +32,9 @@
         });
     });
 
+    function resetResultsHtml() {
+        movieSelectors.results.innerHTML = "";
+    }
     //Saves movie to favorites
     function favoriteAmovie(movie) {
         movie.favorites = "true";
@@ -40,7 +43,7 @@
 
     //displays all movies added to favorites
     function showFavorites() {
-        movieSelectors.results.innerHTML = "";
+        resetResultsHtml();
         movieSelectors.favorite.innerText = "Saved to Favorites";
         ajaxClient.get("/favorites",function(){
             var results = JSON.parse(this.responseText);
