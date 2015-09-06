@@ -6,7 +6,8 @@
       infoBar: document.getElementsByClassName("movie-info-bar"),
       searchForm: document.getElementById("search-form"),
       title: document.getElementById("query-string"),
-      results: document.getElementById("results")
+      results: document.getElementById("results"),
+      loader: document.getElementById("loading")
     };
 
     movieSelectors.searchForm.addEventListener("submit",function(e){
@@ -105,12 +106,11 @@
     }
 
     var loader = {
-        el: document.getElementById("loading"),
         show: function() {
-            this.el.style.display = "block";
+            movieSelectors.loader.style.display = "block";
         },
         hide: function() {
-            this.el.style.display = "none";
+            movieSelectors.loader.style.display = "none";
         }
     };
 }());
