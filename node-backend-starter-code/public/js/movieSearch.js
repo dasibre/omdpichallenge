@@ -62,7 +62,6 @@
             e.preventDefault();
             loader.show();
             movieSelectors.favorite.innerText = (movie.favorite === "true") ? "Saved to favorites" : "favorite this movie";
-            loading.style.display = "block";
             searchByTitle(this.id);
         });
 
