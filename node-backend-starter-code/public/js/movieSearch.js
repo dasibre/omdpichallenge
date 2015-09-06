@@ -1,20 +1,35 @@
 (function(){
-    //get form element
-    var searchForm = document.getElementById("search-form");
+
     var url = "https://www.omdbapi.com/";
-    searchForm.addEventListener("submit",function(e){
+    var movieSelectors = {
+      overview: document.getElementById("movie-overview-info"),
+      infoBar: document.getElementsByClassName("movie-info-bar"),
+      searchForm: document.getElementById("search-form"),
+      title: document.getElementById("query-string"),
+      results: document.getElementById("results")
+    };
+
+    movieSelectors.searchForm.addEventListener("submit",function(e){
         e.preventDefault();
-        document.getElementById("results").innerHTML = "";
-        var movieTitle = document.getElementById("query-string").value;
+        movieSelectors.results.innerHTML = "";
+        var movieTitle = movieSelectors.title.value;
         var searchParam = '?s=' + movieTitle;
         $.ajax(url + searchParam, {
             complete: function(data, status){
-                console.log(status);
-                var results = $.parseJSON(data.responseText);
-                results['Search'].forEach(createList);
+                if(!status === "success") {
+                    alert("Something Went wrong");
+                } else {
+                    var results = $.parseJSON(data.responseText);
+                    results['Search'].forEach(createList);
+                }
             }
         });
     });
+
+    //TODO Add function
+    //function searchByTitle(title) {
+    //    var searchParam = '?s=' + movieTitle;
+    //}
 
     function createList(movie){
         var fields = [movie.Title, movie.Year];
@@ -40,7 +55,7 @@
 
     function toggleMovieInfoDisplay(cb) {
         el = document.getElementById("overlay");
-        el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+        el.style.visibility = (el.style.visibility === "visible") ? "hidden" : "visible";
         cb(el);
     }
 
@@ -50,16 +65,24 @@
         }
     }
 
-    function reqListener () {
-        var movieDetails = JSON.parse(this.responseText);
-        var movieInfo = document.getElementById("movie-overview-info");
-        var poster = movieInfo.getElementsByTagName("img")[0];
-        var title = movieInfo.getElementsByTagName("span")[0];
-        var year = movieInfo.getElementsByTagName("span")[1];
+    function setMovieFields(movieObj) {
+        var movieInfoBar = movieSelectors.infoBar[0];
+        var poster = movieSelectors.overview.getElementsByTagName("img")[0];
+        var title = movieSelectors.overview.getElementsByTagName("span")[0];
+        var year = movieSelectors.overview.getElementsByTagName("span")[1];
+        var movieDescription = movieSelectors.overview.getElementsByClassName("movie-description")[0];
 
-        title.innerText = movieDetails.Title;
-        year.innerText = movieDetails.Year;
-        poster.src = movieDetails.Poster;
+        movieinfoHtml = movieObj.Rated + "&nbsp;" + "<span class='divider'>|</span>" + movieObj.Genre + "&nbsp;" + "<span class='divider'>|</span>" + movieObj.Released;
+
+        poster.src = (movieObj.Poster === "N/A") ? "place_holder.png" : movieObj.Poster;
+        title.innerText = movieObj.Title;
+        year.innerText = movieObj.Year;
+        movieInfoBar.innerHTML = movieinfoHtml;
+        movieDescription.innerText = movieObj.Plot;
+    }
+
+    function reqListener () {
+        setMovieFields(JSON.parse(this.responseText));
         loader.hide();
         toggleMovieInfoDisplay(function(element){
             el = document.getElementById("close-modal");
