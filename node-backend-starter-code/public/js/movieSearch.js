@@ -4,33 +4,41 @@
 (function(){
 
     var omdbapiUrl = "https://www.omdbapi.com/"; //using https to make heroku happy
+    var movieSelectors;
 
-    var movieSelectors = {
-      overview: document.getElementById("movie-overview-info"),
-      infoBar: document.getElementsByClassName("movie-info-bar"),
-      searchForm: document.getElementById("search-form"),
-      title: document.getElementById("query-string"),
-      results: document.getElementById("results"),
-      loader: document.getElementById("loading"),
-      favorite: document.getElementById("favorite"),
-      favorites: document.getElementById("list-favorites")
+    document.onreadystatechange = function() {
+      if(document.readyState === "interactive") {
+          initApplication();
+      }
     };
 
-    movieSelectors.favorites.addEventListener("click", showFavorites);
+    function initApplication() {
+        movieSelectors = {
+            overview: document.getElementById("movie-overview-info"),
+            infoBar: document.getElementsByClassName("movie-info-bar"),
+            searchForm: document.getElementById("search-form"),
+            title: document.getElementById("query-string"),
+            results: document.getElementById("results"),
+            loader: document.getElementById("loading"),
+            favorite: document.getElementById("favorite"),
+            favorites: document.getElementById("list-favorites")
+        };
 
-    //Add submit event listener, to get movies on submission
-    movieSelectors.searchForm.addEventListener("submit",function(e){
-        e.preventDefault();
-        loader.show();
-        resetResultsHtml();
-        var movieTitle = movieSelectors.title.value;
-        var searchParam = '?s=' + movieTitle;
-        ajaxClient.get(omdbapiUrl + searchParam,function(){
-            loader.hide();
-            var results = JSON.parse(this.responseText);
-            results['Search'].forEach(createList);
+        movieSelectors.favorites.addEventListener("click", showFavorites);
+        //Add submit event listener, to get movies on submission
+        movieSelectors.searchForm.addEventListener("submit",function(e){
+            e.preventDefault();
+            loader.show();
+            resetResultsHtml();
+            var movieTitle = movieSelectors.title.value;
+            var searchParam = '?s=' + movieTitle;
+            ajaxClient.get(omdbapiUrl + searchParam,function(){
+                loader.hide();
+                var results = JSON.parse(this.responseText);
+                results['Search'].forEach(createList);
+            });
         });
-    });
+    }
 
     function resetResultsHtml() {
         movieSelectors.results.innerHTML = "";
