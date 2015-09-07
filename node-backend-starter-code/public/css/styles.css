@@ -6,19 +6,23 @@ body {
 }
 #wrapper
 {
-    width:900px;
-    height:auto;
-    background:#C7E3E4;
-    position:absolute;
-    left:40%;
-    top:45%;
-    margin-left:-250px;
-    margin-top:-250px;
+    position: absolute;
+    left: 35%;
+    width: 600px;
+    height: auto;
+    /*width:900px;*/
+    /*height:auto;*/
+    /*background:#C7E3E4;*/
+    /*position:absolute;*/
+    /*left:40%;*/
+    /*top:45%;*/
+    /*margin-left:-250px;*/
+    /*margin-top:-250px;*/
 }
 
 #results {
     position: absolute;
-    left: 25%;
+    left: 0%;
     width: 600px;
 }
 
@@ -40,8 +44,11 @@ body {
 }
 
 #overlay div#movie-overview-modal {
-    width:600px;
-    height: 300px;
+    position: relative;
+    left: 1%;
+    top: 10%;
+    width: 900px;
+    height: 377px;
     margin: 100px auto;
     background-color: #fff;
     border:1px solid #000;
@@ -132,5 +139,5 @@ button {
 a#list-favorites {
     margin: auto 50px;
     position: relative;
-    left: 35%;
+    left: 25%;
 }

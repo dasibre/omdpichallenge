@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
+<div id="wrapper">
     <form id="search-form" class="search">
         <label>
             <input type="text" id="query-string" placeholder="movie title" />
@@ -17,7 +17,7 @@
     <div id="results">
     </div>
 
-
+</div>
 <div id="overlay">
     <div id="movie-overview-modal">
         <table cellspacing="0" cellpadding="0" border="0" id="movie-overview-modal-layout">
@@ -45,7 +45,6 @@
         Click here to [<a href='#' id="close-modal">close</a>]
     </div>
 </div>
-
 <img src="loading.gif" id="loading" style="display:none;" />
 <script src="js/movieSearch.js"></script>
 </body>
