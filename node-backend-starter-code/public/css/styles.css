@@ -17,6 +17,17 @@ body {
     margin-top:-250px;
 }
 
+#results {
+    position: absolute;
+    left: 10%;
+    width: 600px;
+}
+
+#result {
+    position: relative;
+    left: 10%;
+}
+
 #overlay {
     visibility: hidden;
     position: absolute;
